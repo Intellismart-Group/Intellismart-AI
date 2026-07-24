@@ -1,0 +1,61 @@
+name: Fix live blog page
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/fix-live-blog-page.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-live-page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Separate live blog from landing page
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('root-index.html')
+          html = path.read_text(encoding='utf-8')
+
+          html = html.replace('href="#blog" onclick="closeNav()">Blog</a>', 'href="blog.html" onclick="closeNav()">Blog</a>')
+          html = html.replace('href="#blog">Blog</a>', 'href="blog.html">Blog</a>')
+
+          css_start = html.find('    /* ═══ BLOG ═══ */')
+          css_end = html.find('    /* ═══ FAQ ═══ */', css_start)
+          if css_start != -1 and css_end != -1:
+              html = html[:css_start] + html[css_end:]
+
+          section_start = html.find('  <!-- BLOG -->')
+          footer_start = html.find('  <footer class="footer">', section_start)
+          if section_start != -1 and footer_start != -1:
+              html = html[:section_start] + html[footer_start:]
+
+          path.write_text(html, encoding='utf-8')
+
+          source = Path('cloudways-live/blog.html')
+          target = Path('blog.html')
+          target.write_text(source.read_text(encoding='utf-8').replace('href="index.html"', 'href="/"'), encoding='utf-8')
+
+          assert '#blog' not in html
+          assert 'app.trysoro.com/api/embed' not in html
+          assert html.count('href="blog.html"') >= 2
+          assert target.exists()
+          PY
+
+      - name: Commit live page correction
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add root-index.html blog.html
+          git commit -m "Move live Soro blog off landing page" || exit 0
+          git push origin master
