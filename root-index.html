@@ -1631,30 +1631,6 @@ CHANGELOG — IntelliSmart AI Website v6
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ═══ BLOG ═══ */
-    .blog-section {
-      padding: 160px 0;
-      background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
-    }
-    .blog-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-    .blog-header .display-2 {
-      margin-top: 12px;
-    }
-    .blog-header p {
-      font-size: 18px;
-      color: var(--text-secondary);
-      max-width: 620px;
-      margin: 20px auto 0;
-    }
-    .blog-embed {
-      max-width: 1000px;
-      margin: 0 auto;
-      min-height: 200px;
-    }
-
     /* ═══ FAQ ═══ */
     .faq-section {
       padding: 160px 0;
@@ -1931,7 +1907,7 @@ CHANGELOG — IntelliSmart AI Website v6
       <a href="#how" onclick="closeNav()">Process</a>
       <a href="#services" onclick="closeNav()">Services</a>
       <a href="#pricing" onclick="closeNav()">Pricing</a>
-      <a href="#blog" onclick="closeNav()">Blog</a>
+      <a href="blog.html" onclick="closeNav()">Blog</a>
       <a href="#" class="nav-cta" onclick="event.preventDefault();closeNav();startAudit()">Take the Test</a>
     </div>
     <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Menu">
@@ -2230,22 +2206,6 @@ CHANGELOG — IntelliSmart AI Website v6
     </div>
   </section>
 
-  <!-- BLOG -->
-  <section class="blog-section" id="blog">
-    <div class="container">
-      <div class="blog-header">
-        <div class="label reveal">Insights</div>
-        <h2 class="display-2 reveal reveal-delay-1">From the Blog</h2>
-        <p>Practical guidance on AI readiness, automation, and putting AI to work in your business.</p>
-      </div>
-      <!-- Soro blog widget -->
-      <div class="blog-embed">
-        <div id="soro-blog"></div>
-        <script src="https://app.trysoro.com/api/embed/df2257b4-1ed5-4927-95b0-ca75a68f9e04" defer></script>
-      </div>
-    </div>
-  </section>
-
   <footer class="footer">
     <div class="footer-inner">
       <div>
@@ -2264,7 +2224,7 @@ CHANGELOG — IntelliSmart AI Website v6
           <a href="#how">Process</a>
           <a href="#services">Services</a>
           <a href="#pricing">Pricing</a>
-          <a href="#blog">Blog</a>
+          <a href="blog.html">Blog</a>
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
